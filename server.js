@@ -2,26 +2,24 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const axios = require("axios").default;
-
 const PORT = process.env.PORT || 3000;
 const app = express();
-const AWS_NAME_API =
+const AWS_API =
     "https://kpyoslg1fj.execute-api.us-east-1.amazonaws.com/prod/hello-resource";
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
     return res.send(
-        "Please visit URL!!!"
+        "This is the Server Home Page"
     );
 });
 
 app.get("/say", (req, res) => {
     let keyword = req.query.keyword;
     axios
-        .post(AWS_NAME_API, { keyword })
+        .post(AWS_API, { keyword })
         .then((response) => {
             return res.status(response.status).json(response.data);
         })
